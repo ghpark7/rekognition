@@ -5,7 +5,7 @@ def detect_faces(image):
     response = rekognition.detect_faces(
         Image={
             "S3Object": {
-                "Bucket": "ghprekognition",
+                "Bucket": "gprekognition",
                 "Name": image,
             }
         },
@@ -23,9 +23,9 @@ def get_face_features(face_details):
 
 # S3 버킷에서 이미지 리스트를 가져옵니다.
 s3 = boto3.resource('s3')
-bucket = s3.Bucket('ghprekognition')
+bucket = s3.Bucket('gprekognition')
 
-images = [obj.key for obj in bucket.objects.filter(Prefix='Tom Hanks/')]
+images = [obj.key for obj in bucket.objects.all()]
 
 # 각 이미지에 대해 얼굴을 감지하고 특징을 출력합니다.
 for image in images:
